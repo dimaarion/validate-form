@@ -1,8 +1,12 @@
 class Vebforma {
-  name = "";
-  surName = "";
-  phone = 0;
-  eMail = "";
+  name = false;
+  surName = false;
+  phone = false;
+  eMail = false;
+  displayEroor = false;
+  getName(e, i) {
+    return document.getElementsByName(e)[i];
+  }
 
   getSelector(e) {
     return document.querySelector(e);
@@ -12,15 +16,31 @@ class Vebforma {
     return document.querySelectorAll(e);
   }
 
-  validText(e) {
-    let element = this.getSelector(e);
-    element.addEventListener("change", () => {
-      //  alert(e);
+  validText(el, i) {
+    el.addEventListener("change", (e) => {
+      if (e.target.value.length > 0) {
+        e.target.style.borderColor = "green";
+        if (
+          e.target.name === "form_text_1" ||
+          e.target.name === "form_text_2"
+        ) {
+          e.target.value = e.target.value.replace(/[0-9]/g, "");
+          console.log(e.target.value.length);
+        } else if (e.target.name === "form_text_3") {
+          e.target.value = e.target.value.replace(/[a-z | а-я]/g, "");
+        }
+      } else if (e.target.value.length === 0) {
+        e.target.style.borderColor = "red";
+      }
+      if (e.target.value.length === 0) {
+        //    e.target.style.borderColor = "red";
+      }
     });
   }
 
   update() {
-    this.validText("form-table");
+    let inputs = Array.from(this.getSelectorAll(".inputtext"));
+    inputs.map((input, i) => this.validText(input, i));
   }
 
   display() {
