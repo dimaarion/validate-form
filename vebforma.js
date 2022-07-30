@@ -17,11 +17,8 @@ class Vebforma {
   }
 
   sendingRequest() {
-    console.log(this.name);
     this.getName("web_form_submit", 0).onclick = () => {
       if (this.name && this.surName && this.phone && this.eMail) {
-        console.log("Проверка");
-
         alert("Отправка");
       }
     };
@@ -81,8 +78,9 @@ class Vebforma {
   update() {
     this.getName("web_form_submit", 0).setAttribute("type", "button");
     this.getName("web_form_submit", 0).setAttribute("value", "Отправить");
-    let inputs = Array.from(this.getSelectorAll(".inputtext"));
-    inputs.map((input, i) => this.validText(input, i));
+    Array.from(this.getSelectorAll(".inputtext")).map((input, i) =>
+      this.validText(input, i)
+    );
   }
 
   display() {
